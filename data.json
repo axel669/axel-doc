@@ -1,0 +1,613 @@
+{
+  "ajax": {
+    "type": "Function",
+    "name": "ajax",
+    "desc": "Sends an async ajax request to the specified url.",
+    "return": {
+      "type": "{Promise}",
+      "desc": "Returns a promise that resolves with the result of the ajax request. The resolved value is an object with the 'status', 'statusText', and 'response' properties. The type of 'response' depends on the type option if specified."
+    },
+    "param": [
+      {
+        "name": "url",
+        "type": [
+          "string"
+        ],
+        "desc": "The url to request.",
+        "flags": []
+      },
+      {
+        "name": "options",
+        "type": [
+          "object"
+        ],
+        "desc": "",
+        "flags": [
+          "optional"
+        ],
+        "property": [
+          {
+            "name": "Object",
+            "type": [
+              "headers"
+            ],
+            "desc": "Additional headers to send with the request. Format is {header: headerValue}. Default sends no additional headers.",
+            "flags": [
+              "optional"
+            ]
+          },
+          {
+            "name": "timeout",
+            "type": [
+              "Number"
+            ],
+            "desc": "The amount of time to wait before closing the connection. Set to 0 to let connections try as long as possible. Default is 0.",
+            "flags": [
+              "optional"
+            ]
+          },
+          {
+            "name": "type",
+            "type": [
+              "String"
+            ],
+            "desc": "The type of object to return from the ajax request. Valid options depend on the browser. See the [link https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType MDN Docs] for details. Default is null (text).",
+            "flags": [
+              "optional"
+            ]
+          },
+          {
+            "name": "onProgress",
+            "type": [
+              "Function"
+            ],
+            "desc": "A function to call while the request is loading. Should take one argument that is the ProgressEvent.",
+            "flags": [
+              "optional"
+            ]
+          },
+          {
+            "name": "token",
+            "type": [
+              "ajax.cancelToken"
+            ],
+            "desc": "A cancellatio token for the request. A cancelled ajax request will not throw an error, instead it will return null.",
+            "flags": [
+              "optional"
+            ]
+          },
+          {
+            "name": "post",
+            "type": [
+              "*",
+              "FormData"
+            ],
+            "desc": "Post data to send with the request. If the object is not a FormData object, it will have JSON.stringify called on it before it is sent.",
+            "flags": [
+              "optional"
+            ]
+          }
+        ]
+      }
+    ],
+    "property": [
+      {
+        "type": "Constructor",
+        "name": "cancelToken",
+        "parent": "ajax",
+        "desc": "Creates a cancellation token for an ajax request. Note: A token can only be used to cancel one request. Every request that needs to be cancelled needs its own token.",
+        "property": [
+          {
+            "name": "used",
+            "type": [
+              "Boolean"
+            ],
+            "desc": "Whether or not the token has been given to a request.",
+            "flags": []
+          },
+          {
+            "name": "cancel",
+            "type": [
+              "Function"
+            ],
+            "desc": "Cancels the request that has been given this token.",
+            "flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "App": {
+    "type": "Object",
+    "name": "App",
+    "property": [
+      {
+        "type": "Constructor",
+        "name": "API",
+        "parent": "App",
+        "param": [
+          {
+            "name": "appName",
+            "type": [
+              "String"
+            ],
+            "desc": "The name of the application on the server.",
+            "flags": []
+          }
+        ],
+        "property": [
+          {
+            "type": "Function",
+            "name": "request",
+            "parent": "App.API",
+            "param": [
+              {
+                "name": "url",
+                "type": [
+                  "String"
+                ],
+                "desc": "The url to request. This is the path specified in the app.xml file, NOT the full web address.",
+                "flags": []
+              },
+              {
+                "name": "options",
+                "type": [
+                  "Object"
+                ],
+                "desc": "See [link #ajax.param.options ajax options].",
+                "flags": []
+              }
+            ],
+            "return": {
+              "type": "{Promise}",
+              "desc": "See [link #ajax.return ajax return]."
+            }
+          },
+          {
+            "type": "Function",
+            "name": "requestData",
+            "parent": "App.API",
+            "param": [
+              {
+                "name": "url",
+                "type": [
+                  "String"
+                ],
+                "desc": "The url to request. This is the path specified in the app.xml file, NOT the full web address.",
+                "flags": []
+              },
+              {
+                "name": "options",
+                "type": [
+                  "Object"
+                ],
+                "desc": "See [link #ajax.param.options ajax options].",
+                "flags": []
+              }
+            ],
+            "return": {
+              "type": "{Promise}",
+              "desc": "Returns a promise that resolves with the result of the ajax request parsed into an object. The resolved value will be the result of calling JSON.parse on the response."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "secure": {
+    "type": "Object",
+    "name": "secure",
+    "desc": "An object with security related functions.",
+    "property": [
+      {
+        "type": "Function",
+        "name": "encrypt",
+        "parent": "secure",
+        "static": true,
+        "desc": "Encrypts a string using the given options.",
+        "param": [
+          {
+            "name": "data",
+            "type": [
+              "String"
+            ],
+            "desc": "The data to encrypt.",
+            "flags": []
+          },
+          {
+            "name": "key",
+            "type": [
+              "String",
+              "Buffer"
+            ],
+            "desc": "The encryption key.",
+            "flags": []
+          },
+          {
+            "name": "options",
+            "type": [
+              "Object"
+            ],
+            "desc": "",
+            "flags": [],
+            "property": [
+              {
+                "name": "iv",
+                "type": [
+                  "String",
+                  "Buffer"
+                ],
+                "desc": "The initial vector to use for encryption.",
+                "flags": [
+                  "optional"
+                ]
+              },
+              {
+                "name": "algorithm",
+                "type": [
+                  "String"
+                ],
+                "desc": "The encryption algorithm to use. Default is AES256.",
+                "flags": [
+                  "optional"
+                ]
+              },
+              {
+                "name": "input",
+                "type": [
+                  "String"
+                ],
+                "desc": "The form that the input is in. Default is utf8 string.",
+                "flags": [
+                  "optional"
+                ]
+              },
+              {
+                "name": "output",
+                "type": [
+                  "String"
+                ],
+                "desc": "The form that the output should be in. Default is hex.",
+                "flags": [
+                  "optional"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Function",
+        "name": "decrypt",
+        "parent": "secure",
+        "static": true,
+        "desc": "Decrypts a string using the given options.",
+        "param": [
+          {
+            "name": "data",
+            "type": [
+              "String"
+            ],
+            "desc": "The data to encrypt.",
+            "flags": []
+          },
+          {
+            "name": "key",
+            "type": [
+              "String",
+              "Buffer"
+            ],
+            "desc": "The encryption key.",
+            "flags": []
+          },
+          {
+            "name": "options",
+            "type": [
+              "Object"
+            ],
+            "desc": "",
+            "flags": [],
+            "property": [
+              {
+                "name": "iv",
+                "type": [
+                  "String",
+                  "Buffer"
+                ],
+                "desc": "The initial vector to use for encryption.",
+                "flags": [
+                  "optional"
+                ]
+              },
+              {
+                "name": "algorithm",
+                "type": [
+                  "String"
+                ],
+                "desc": "The decryption algorithm to use. Default is AES256.",
+                "flags": [
+                  "optional"
+                ]
+              },
+              {
+                "name": "input",
+                "type": [
+                  "String"
+                ],
+                "desc": "The form that the input should be in. Default is hex.",
+                "flags": [
+                  "optional"
+                ]
+              },
+              {
+                "name": "output",
+                "type": [
+                  "String"
+                ],
+                "desc": "The form that the output is in. Default is utf8 string.",
+                "flags": [
+                  "optional"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Function",
+        "name": "hash",
+        "parent": "secure",
+        "static": true,
+        "desc": "Returns a hash of the string using the given algorithm.",
+        "param": [
+          {
+            "name": "str",
+            "type": [
+              "String"
+            ],
+            "desc": "The string to hash.",
+            "flags": []
+          },
+          {
+            "name": "algorithm",
+            "type": [
+              "String"
+            ],
+            "desc": "The hashing algorithm to use. Default is SHA512.",
+            "flags": [
+              "optional"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "deviceReady": {
+    "type": "Promise",
+    "name": "deviceReady",
+    "desc": "a promise that resolves after the deviceready event has fired in codova. Useful for plugins that are written and included outside of Corinthian."
+  },
+  "Environment": {
+    "type": "Object",
+    "name": "Environment",
+    "desc": "Contains information about the current environment.",
+    "property": [
+      {
+        "name": "mobile",
+        "type": [
+          "Boolean"
+        ],
+        "desc": "True if the current page is on a mobile platform (mobile browser, cordova, etc.).",
+        "flags": []
+      },
+      {
+        "name": "app",
+        "type": [
+          "Boolean"
+        ],
+        "desc": "True if the current page is inside of cordova.",
+        "flags": []
+      }
+    ]
+  },
+  "fs": {
+    "type": "Object",
+    "name": "fs",
+    "property": [
+      {
+        "type": "Function",
+        "name": "fileRead",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "dirRead",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "fileWrite",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "fileCreate",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "dirCreate",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "fileRemove",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "dirRemove",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "fileExists",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "dirExists",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "fileMove",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "fileCopy",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "dirMove",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "dirTree",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "url",
+        "parent": "fs",
+        "return": {
+          "type": "{String}",
+          "desc": ""
+        }
+      },
+      {
+        "type": "Function",
+        "name": "entry",
+        "parent": "fs",
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        }
+      }
+    ]
+  },
+  "ZipFile": {
+    "type": "constructor",
+    "name": "ZipFile",
+    "property": [
+      {
+        "type": "Function",
+        "name": "getFile",
+        "parent": "ZipFile"
+      },
+      {
+        "type": "Function",
+        "name": "getEntries",
+        "parent": "ZipFile"
+      },
+      {
+        "type": "Function",
+        "name": "extractTo",
+        "parent": "ZipFile"
+      }
+    ]
+  },
+  "zip": {
+    "type": "Object",
+    "name": "zip",
+    "property": [
+      {
+        "name": "download",
+        "type": [
+          "Function"
+        ],
+        "desc": "Downloads a zip file and gives back the ZipFile object for it.",
+        "flags": [],
+        "return": {
+          "type": "{Promise}",
+          "desc": ""
+        },
+        "param": [
+          {
+            "name": "url",
+            "type": [
+              "String"
+            ],
+            "desc": "The url of the zip file.",
+            "flags": []
+          },
+          {
+            "name": "onProgress",
+            "type": [
+              "Function"
+            ],
+            "desc": "A function to call while the zip file is being downloaded.",
+            "flags": [
+              "optional"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

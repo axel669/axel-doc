@@ -5,13 +5,39 @@
     "desc": "Sends an async ajax request to the specified url.",
     "return": {
       "type": "{Promise}",
-      "desc": "Returns a promise that resolves with the result of the ajax request. The resolved value is an object with the 'status', 'statusText', and 'response' properties. The type of 'response' depends on the type option if specified."
+      "desc": "Returns a promise that resolves with the result of the ajax request. The resolved value is an object with the 'status', 'statusText', and 'response' properties. The type of 'response' depends on the type option if specified.",
+      "property": [
+        {
+          "name": "status",
+          "type": [
+            "Number"
+          ],
+          "desc": "",
+          "flags": []
+        },
+        {
+          "name": "statusText",
+          "type": [
+            "String"
+          ],
+          "desc": "",
+          "flags": []
+        },
+        {
+          "name": "response",
+          "type": [
+            "*"
+          ],
+          "desc": "",
+          "flags": []
+        }
+      ]
     },
     "param": [
       {
         "name": "url",
         "type": [
-          "string"
+          "String"
         ],
         "desc": "The url to request.",
         "flags": []
@@ -27,9 +53,9 @@
         ],
         "property": [
           {
-            "name": "Object",
+            "name": "headers",
             "type": [
-              "headers"
+              "Object"
             ],
             "desc": "Additional headers to send with the request. Format is {header: headerValue}. Default sends no additional headers.",
             "flags": [

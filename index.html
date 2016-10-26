@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Template Test</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.14.0/babel.min.js"></script>
+        <script src="https://unpkg.com/react@15/dist/react.js"></script>
+        <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+        <script src="https://unpkg.com/babel-polyfill/dist/polyfill.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <style>
+        html, body {
+            font-family: Roboto;
+        }
+        .doc-card {
+            margin: 3px;
+            padding: 3px;
+            background-color: white;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            border: 1px solid lightgray;
+        }
+        .doc-card > .title {
+            font-size: 22px;
+        }
+
+        .doc-table {
+            display: flex;
+            border: 1px solid black;
+        }
+        .doc-col {
+            flex-grow: 1;
+            border: 1px solid black;
+        }
+        </style>
+    </head>
+    <body>
+        <script src="template.js" type="text/babel" data-presets="es2015,stage-0,react"></script>
+    </body>
+</html>

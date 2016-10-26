@@ -1,7 +1,7 @@
 const fs = require('mz/fs');
 const co = require('co');
 
-const path = "../../../github/corinthian/lib-source/v2";
+const path = "../corinthian/lib-source/v2";
 
 const jsonlog = (...args) => {
     for (const item of args) {

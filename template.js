@@ -7,24 +7,29 @@ const display = {
 
         for (const prop of props) {
             elems.push(
-                <div className="doc-col" style={{width: '20%'}}>{prop.name}</div>
-            );
-            elems.push(
-                <div className="doc-col" style={{width: '20%'}}>{prop.type}</div>
-            );
-            elems.push(
-                <div className="doc-col" style={{width: '60%'}}>{prop.desc}</div>
+                <Card title={prop.name}>
+                    <div style={{fontStyle: 'italic'}}>
+                        {prop.type}
+                    </div>
+                    <div>
+                        {prop.desc}
+                    </div>
+                </Card>
             );
         }
 
         return (
-            <Card title={data.name}>
-                <div style={{fontStyle: "italic"}}>{data.desc}</div>
+            // <Card title={data.name}>
+            <div>
+                <div className="doc-page-title">
+                    <div className="title">{data.name}</div>
+                    <div className="desc">{data.desc}</div>
+                </div>
                 <div>
                     {elems}
-                    {/*{props.map(prop => <div className="doc-col">{prop.name}</div>)}*/}
                 </div>
-            </Card>
+            </div>
+            // </Card>
         );
     }
 };
@@ -34,16 +39,25 @@ const display = {
     const data = await response.json();
 
     let items = [];
+    let globals = [];
     for (const key of Object.keys(data)) {
         const item = data[key];
 
         if (item.type === 'Object') {
             items.push(<display.Object data={item} />);
         }
+        globals.push(
+            <div>{item.name}</div>
+        );
     }
 
     ReactDOM.render(
-        <div>{items}</div>,
+        <div className="doc-content">
+            <div className="global-names">
+                {globals}
+            </div>
+            {items}
+        </div>,
         document.body
     );
 })();

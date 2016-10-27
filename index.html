@@ -10,6 +10,8 @@
         <style>
         html, body {
             font-family: Roboto;
+            margin: 0px;
+            padding: 0px;
         }
         .doc-card {
             margin: 3px;
@@ -22,13 +24,30 @@
             font-size: 22px;
         }
 
-        .doc-table {
-            display: flex;
-            border: 1px solid black;
+        .doc-page-title {
+            background-color: #444;
+            color: white;
+            padding: 4px;
         }
-        .doc-col {
+        .doc-page-title > .title {
+            font-size: 26px;
+        }
+        .doc-page-title > .desc {
+            font-style: italic;
+        }
+        .doc-content {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .global-names {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .global-names > div {
             flex-grow: 1;
-            border: 1px solid black;
+            min-width: 25%;
         }
         </style>
     </head>
